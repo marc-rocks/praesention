@@ -26,3 +26,11 @@ Alle Texte liegen in `js/data.js`. Ein Modul besteht aus `intro` (Absätze), `ke
 ## Fortschritt
 
 Ergebnisse werden im `localStorage` des Browsers gespeichert. Ein Modul gilt ab 70 Prozent richtigen Antworten als bestanden. Der Fortschritt lässt sich über den Link im Footer zurücksetzen.
+
+## Einzeldatei-Version
+
+`dist/social-media-campus.html` enthält CSS und JavaScript eingebettet und läuft ohne Webserver, zum Beispiel direkt vom Tablet oder per Mail verschickt. Nach Änderungen an den Quelldateien neu erzeugen:
+
+```bash
+node -e 'const fs=require("fs");let h=fs.readFileSync("index.html","utf8");h=h.replace(`<link rel="stylesheet" href="css/style.css">`,"<style>\n"+fs.readFileSync("css/style.css","utf8")+"\n</style>");h=h.replace(`<script src="js/data.js"></script>\n<script src="js/app.js"></script>`,"<script>\n"+fs.readFileSync("js/data.js","utf8")+"\n</script>\n<script>\n"+fs.readFileSync("js/app.js","utf8")+"\n</script>");fs.writeFileSync("dist/social-media-campus.html",h)'
+```
